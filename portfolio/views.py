@@ -1,12 +1,17 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from datetime import datetime
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .forms import ContactForm
+
 
 def home(request):
     """
-    Home page view with featured and recent posts
+    Home page view with featured and recent posts + contact form
     """
-    # Featured posts data
+
+    # ================= Featured posts =================
     featured_posts = [
         {
             'title': 'Drone Software and Development',
@@ -27,14 +32,14 @@ def home(request):
             'category': 'Lifestyle'
         },
     ]
-    
-    # Recent posts data
+
+    # ================= Recent posts =================
     recent_posts = [
         {
             'title': 'How to make toys from old Oldpaper',
             'author': 'steveongera',
             'date': '24 July 2022',
-            'excerpt': 'Nemo vel ad consectetur namkd etfd ium voluptatibus volupt enim ipsum, voluptas ut totam, quisquamm beatae.',
+            'excerpt': 'Nemo vel ad consectetur namkd etfd ium voluptatibus...',
             'image': 'robot.jpg',
             'category': 'DIY'
         },
@@ -42,50 +47,29 @@ def home(request):
             'title': 'What you need to know about Programming',
             'author': 'steveongera',
             'date': '24 July 2022',
-            'excerpt': 'Nemo vel ad consectetur namkd etfd ium voluptatibus volupt enim ipsum, voluptas ut totam.',
+            'excerpt': 'Nemo vel ad consectetur namkd etfd ium voluptatibus...',
             'image': 'programming.jpg',
             'category': 'Geeky'
         },
-        {
-            'title': 'Why you need to learn PHP',
-            'author': 'steveongera',
-            'date': '24 July 2022',
-            'excerpt': 'Nemo vel ad consectetur namkd etfd ium voluptatibus volupt enim ipsum, voluptas ut totam.',
-            'image': 'php.jpg',
-            'category': 'Programming'
-        },
-        {
-            'title': 'What is a Virtual Assistant',
-            'author': 'steveongera',
-            'date': '24 July 2022',
-            'excerpt': 'Nemo vel ad consectetur namkd etfd ium voluptatibus volupt enim ipsum, voluptas ut totam.',
-            'image': 'virtual_assistant.jpg',
-            'category': 'Geeky'
-        },
-        {
-            'title': 'Robotic world is growing very fast',
-            'author': 'steveongera',
-            'date': '24 July 2022',
-            'excerpt': 'Nemo vel ad consectetur namkd etfd ium voluptatibus volupt enim ipsum, voluptas ut totam.',
-            'image': 'robotics.jpg',
-            'category': 'Technology'
-        },
-        {
-            'title': 'My work from home workstation',
-            'author': 'steveongera',
-            'date': '24 July 2022',
-            'excerpt': 'Nemo vel ad consectetur namkd etfd ium voluptatibus volupt enim ipsum, voluptas ut totam.',
-            'image': 'workspace.jpg',
-            'category': 'Programming'
-        },
     ]
-    
+
+    # ================= Contact form handling =================
+    if request.method == 'POST':
+        contact_form = ContactForm(request.POST)
+        if contact_form.is_valid():
+            contact_form.save()
+            messages.success(request, 'Message sent successfully!')
+            return redirect('home')  # reload homepage
+    else:
+        contact_form = ContactForm()
+
     context = {
         'featured_posts': featured_posts,
         'recent_posts': recent_posts,
+        'contact_form': contact_form,
         'page_title': 'Home',
     }
-    
+
     return render(request, 'index.html', context)
 
 
