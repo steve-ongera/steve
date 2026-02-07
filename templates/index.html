@@ -1,62 +1,82 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Steve Ongera - Senior Software Developer{% endblock %}
+{% block title %}Steve Ongera - Senior Software Developer Portfolio{% endblock %}
 
 {% block extra_css %}
 <style>
-    /* Custom styles for index page */
+    /* Custom styles for index page - Clean and minimal */
     .hero-section {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 6rem 0;
+        padding: 4rem 0 5rem;
         position: relative;
-        overflow: hidden;
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
     }
 
-    .hero-section::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    .profile-image {
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid white;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        margin: 0 auto;
     }
 
     .hero-badge {
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(37, 99, 235, 0.1);
+        color: var(--primary-color);
+        padding: 0.375rem 1rem;
+        border-radius: 20px;
+        font-size: var(--font-size-sm);
+        font-weight: 500;
+        display: inline-block;
+        margin-bottom: 1rem;
+    }
+
+    .section-header {
+        margin-bottom: 3rem;
+    }
+
+    .section-header h2 {
+        font-size: var(--font-size-3xl);
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+    }
+
+    .section-header .lead {
+        font-size: var(--font-size-lg);
+        color: var(--text-light);
+        max-width: 600px;
     }
 
     .experience-card {
         background: white;
-        border-radius: 16px;
-        padding: 2rem;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
         border: 1px solid var(--border-color);
+        border-radius: var(--border-radius-lg);
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        transition: var(--transition);
     }
 
     .experience-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+        border-color: var(--primary-color);
+        box-shadow: var(--shadow-md);
     }
 
-    .experience-logo {
-        width: 80px;
-        height: 80px;
+    .company-logo {
+        width: 60px;
+        height: 60px;
         border-radius: 12px;
+        background: rgba(37, 99, 235, 0.1);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 2rem;
-        color: white;
-        margin-bottom: 1.5rem;
+        color: var(--primary-color);
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
     }
 
-    .tech-stack {
+    .tech-tags {
         display: flex;
         flex-wrap: wrap;
         gap: 0.5rem;
@@ -64,121 +84,110 @@
     }
 
     .tech-tag {
-        background: rgba(37, 99, 235, 0.1);
+        background: rgba(37, 99, 235, 0.08);
         color: var(--primary-color);
         padding: 0.25rem 0.75rem;
         border-radius: 20px;
-        font-size: 0.85rem;
+        font-size: var(--font-size-sm);
         font-weight: 500;
-    }
-
-    .project-showcase {
-        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-        padding: 4rem 0;
     }
 
     .project-card {
         background: white;
-        border-radius: 16px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius-lg);
         overflow: hidden;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        transition: all 0.3s ease;
         height: 100%;
+        transition: var(--transition);
     }
 
     .project-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        border-color: var(--primary-color);
+        box-shadow: var(--shadow-md);
+        transform: translateY(-4px);
     }
 
     .project-image {
         height: 200px;
-        width: 100%;
-        object-fit: cover;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 3rem;
+    }
+
+    .project-content {
+        padding: 1.5rem;
+    }
+
+    .project-badge {
+        background: rgba(37, 99, 235, 0.1);
+        color: var(--primary-color);
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: var(--font-size-sm);
+        font-weight: 500;
+        display: inline-block;
+        margin-bottom: 1rem;
     }
 
     .stats-section {
         background: var(--dark-color);
         color: white;
         padding: 4rem 0;
+        margin: 4rem 0;
     }
 
     .stat-item {
         text-align: center;
-        padding: 2rem;
+        padding: 1.5rem;
     }
 
     .stat-number {
-        font-size: 3rem;
+        font-size: var(--font-size-4xl);
         font-weight: 700;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: white;
         margin-bottom: 0.5rem;
+        line-height: 1;
     }
 
     .stat-label {
         color: #94a3b8;
-        font-size: 0.9rem;
+        font-size: var(--font-size-sm);
         text-transform: uppercase;
         letter-spacing: 1px;
     }
 
-    .timeline {
-        position: relative;
-        padding-left: 2rem;
+    .skills-grid {
+        display: grid;
+        gap: 1rem;
+        margin-top: 2rem;
     }
 
-    .timeline::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 2px;
-        background: var(--primary-color);
-    }
-
-    .timeline-item {
-        position: relative;
-        margin-bottom: 2rem;
-        padding-left: 2rem;
-    }
-
-    .timeline-item::before {
-        content: '';
-        position: absolute;
-        left: -0.6rem;
-        top: 0.5rem;
-        width: 1rem;
-        height: 1rem;
-        border-radius: 50%;
-        background: var(--primary-color);
-        border: 3px solid white;
-        box-shadow: 0 0 0 4px var(--primary-color);
-    }
-
-    .education-badge {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-        color: white;
-        padding: 0.5rem 1rem;
-        border-radius: 20px;
-        font-size: 0.9rem;
-        font-weight: 500;
-        display: inline-block;
-    }
-
-    .contact-card {
+    .skill-category {
         background: white;
-        border-radius: 16px;
-        padding: 2rem;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
         border: 1px solid var(--border-color);
+        border-radius: var(--border-radius-lg);
+        padding: 1.5rem;
     }
 
-    .contact-icon {
+    .skill-category h4 {
+        font-size: var(--font-size-lg);
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--dark-color);
+    }
+
+    .education-card {
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius-lg);
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .education-icon {
         width: 50px;
         height: 50px;
         border-radius: 12px;
@@ -186,43 +195,116 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.5rem;
         color: var(--primary-color);
+        font-size: 1.25rem;
         margin-bottom: 1rem;
     }
 
-    .section-header {
-        text-align: center;
-        margin-bottom: 3rem;
+    .contact-info {
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius-lg);
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
     }
 
-    .section-header h2 {
-        font-size: 2.5rem;
+    .contact-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        background: rgba(37, 99, 235, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-color);
+        font-size: 1rem;
         margin-bottom: 1rem;
     }
 
-    .section-header p {
-        color: var(--text-color);
-        max-width: 600px;
-        margin: 0 auto;
+    .form-control {
+        border: 2px solid var(--border-color);
+        border-radius: var(--border-radius);
+        padding: 0.75rem;
+        font-size: var(--font-size-base);
+        transition: var(--transition);
     }
 
+    .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    /* Responsive adjustments */
     @media (max-width: 768px) {
         .hero-section {
-            padding: 4rem 0;
+            padding: 2rem 0 3rem;
             text-align: center;
         }
-        
+
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 2rem;
+        }
+
         .section-header h2 {
-            font-size: 2rem;
+            font-size: var(--font-size-2xl);
         }
-        
+
+        .section-header .lead {
+            font-size: var(--font-size-base);
+        }
+
+        .project-image {
+            height: 150px;
+        }
+
         .stat-number {
-            font-size: 2.5rem;
+            font-size: var(--font-size-3xl);
         }
-        
-        .experience-card {
-            padding: 1.5rem;
+
+        .experience-card,
+        .project-card,
+        .skill-category,
+        .education-card {
+            padding: 1.25rem;
+        }
+
+        .tech-tags {
+            gap: 0.375rem;
+        }
+
+        .tech-tag {
+            font-size: 0.75rem;
+            padding: 0.1875rem 0.5625rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .profile-image {
+            width: 180px;
+            height: 180px;
+        }
+
+        .hero-badge {
+            font-size: 0.75rem;
+        }
+
+        .section-header {
+            margin-bottom: 2rem;
+        }
+    }
+
+    /* Print styles */
+    @media print {
+        .hero-section {
+            background: none !important;
+            padding: 0 !important;
+        }
+
+        .project-image,
+        .stats-section {
+            display: none !important;
         }
     }
 </style>
@@ -230,40 +312,83 @@
 
 {% block content %}
 <!-- Hero Section -->
-<section class="hero-section">
+<section class="hero-section" id="home">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-lg-8">
-                <span class="hero-badge rounded-pill px-4 py-2 mb-3 d-inline-block">
+            <div class="col-lg-5 text-center text-lg-start">
+                <div class="hero-badge">
                     <i class="bi bi-award me-2"></i>Senior Software Developer
-                </span>
-                <h1 class="display-4 fw-bold mb-4">
-                    Steve Ongera
-                    <span class="d-block text-gradient">Building Digital Excellence</span>
-                </h1>
-                <p class="lead mb-4 opacity-90">
-                    Senior Software Developer specializing in enterprise solutions with 5+ years of experience. 
-                    Expert in Django, .NET, Angular, React, and scalable system architecture. Passionate about 
-                    creating impactful software solutions for major organizations.
+                </div>
+                <h1 class="mb-3">Steve Ongera</h1>
+                <p class="lead mb-4">
+                    Building enterprise solutions with 5+ years of experience in Django, ASP.NET, React, 
+                    and modern web technologies. Passionate about creating scalable, efficient software 
+                    that drives business success.
                 </p>
-                <div class="d-flex flex-wrap gap-3">
-                    <a href="#contact" class="btn btn-primary btn-lg">
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="#contact" class="btn btn-primary">
                         <i class="bi bi-envelope me-2"></i>Get in Touch
                     </a>
-                    <a href="#projects" class="btn btn-outline-light btn-lg">
+                    <a href="#projects" class="btn btn-outline-primary">
                         <i class="bi bi-briefcase me-2"></i>View Projects
                     </a>
                 </div>
             </div>
-            <div class="col-lg-4 mt-4 mt-lg-0">
-                <div class="position-relative">
-                    <div class="bg-white rounded-3 p-4 shadow-lg">
-                        <div class="text-center">
-                            <div class="rounded-circle bg-primary mx-auto d-flex align-items-center justify-content-center" style="width: 200px; height: 200px;">
-                                <i class="bi bi-person text-white" style="font-size: 4rem;"></i>
+            <div class="col-lg-6 offset-lg-1 text-center mt-5 mt-lg-0">
+                <img src="{% static 'images/profile.png' %}" alt="Steve Ongera - Senior Software Developer" class="profile-image">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-5">
+    <div class="container">
+        <div class="section-header text-center">
+            <h2>About Me</h2>
+            <p class="lead">Senior Software Developer with expertise in enterprise solutions and system architecture</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="mb-4">
+                            I am a results-driven Software Developer with over 5 years of experience building 
+                            enterprise-grade applications for major organizations including NCBA Bank, Nairobi Jets, 
+                            and Coca-Cola. I specialize in full-stack development with Django, ASP.NET, React, 
+                            and modern web technologies.
+                        </p>
+                        <p class="mb-4">
+                            Currently completing my BSc in Information Technology at Muranga University of Technology, 
+                            graduating in April 2026. I have delivered 391+ personal projects and multiple enterprise 
+                            systems including Muranga Level 5 HMIS, MUT ERP, and Strathmore PMIS.
+                        </p>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                                    <span>Enterprise Solutions</span>
+                                </div>
                             </div>
-                            <h3 class="mt-3 mb-1">Steve Ongera</h3>
-                            <p class="text-muted mb-0">BSc IT | Senior Developer</p>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                                    <span>Full-Stack Development</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                                    <span>System Architecture</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                                    <span>Team Leadership</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -273,40 +398,45 @@
 </section>
 
 <!-- Experience Section -->
-<section id="experience" class="section-spacing">
+<section id="experience" class="py-5 bg-light">
     <div class="container">
-        <div class="section-header">
-            <h2>Professional <span class="text-gradient">Experience</span></h2>
-            <p>Working with leading organizations to deliver exceptional software solutions</p>
+        <div class="section-header text-center">
+            <h2>Professional Experience</h2>
+            <p class="lead">Working with leading organizations to deliver exceptional software solutions</p>
         </div>
         
-        <div class="row g-4">
-            <div class="col-lg-4">
-                <div class="experience-card">
-                    <div class="experience-logo bg-primary">
+        <div class="row">
+            <!-- Experience 1 -->
+            <div class="col-lg-4 mb-4">
+                <div class="experience-card h-100">
+                    <div class="company-logo">
                         <i class="bi bi-bank"></i>
                     </div>
-                    <h3 class="h4 fw-bold mb-2">NCBA Bank</h3>
-                    <p class="text-muted mb-3">Senior Software Developer | 2022-Present</p>
-                    <p>Led development of core banking systems using Django and .NET, implementing secure financial transactions processing and integration with multiple payment gateways.</p>
-                    <div class="tech-stack">
+                    <h4 class="h5 fw-bold mb-2">NCBA Bank</h4>
+                    <p class="text-primary mb-2">Senior Software Developer</p>
+                    <p class="text-muted small mb-3">2022 - Present</p>
+                    <p class="mb-3">Led development of core banking systems using Django and ASP.NET, implementing secure financial transactions and payment gateway integrations.</p>
+                    <div class="tech-tags">
                         <span class="tech-tag">Django</span>
                         <span class="tech-tag">ASP.NET</span>
                         <span class="tech-tag">PostgreSQL</span>
                         <span class="tech-tag">React</span>
+                        <span class="tech-tag">C#</span>
                     </div>
                 </div>
             </div>
             
-            <div class="col-lg-4">
-                <div class="experience-card">
-                    <div class="experience-logo bg-success">
+            <!-- Experience 2 -->
+            <div class="col-lg-4 mb-4">
+                <div class="experience-card h-100">
+                    <div class="company-logo">
                         <i class="bi bi-airplane"></i>
                     </div>
-                    <h3 class="h4 fw-bold mb-2">Nairobi Jets</h3>
-                    <p class="text-muted mb-3">Full-Stack Developer | 2021-2022</p>
-                    <p>Developed aviation management systems and booking platforms using Angular and Django REST Framework, improving operational efficiency by 40%.</p>
-                    <div class="tech-stack">
+                    <h4 class="h5 fw-bold mb-2">Nairobi Jets</h4>
+                    <p class="text-primary mb-2">Full-Stack Developer</p>
+                    <p class="text-muted small mb-3">2021 - 2022</p>
+                    <p class="mb-3">Developed aviation management systems and booking platforms using Angular and Django REST Framework.</p>
+                    <div class="tech-tags">
                         <span class="tech-tag">Angular</span>
                         <span class="tech-tag">Django REST</span>
                         <span class="tech-tag">MySQL</span>
@@ -315,88 +445,21 @@
                 </div>
             </div>
             
-            <div class="col-lg-4">
-                <div class="experience-card">
-                    <div class="experience-logo bg-danger">
+            <!-- Experience 3 -->
+            <div class="col-lg-4 mb-4">
+                <div class="experience-card h-100">
+                    <div class="company-logo">
                         <i class="bi bi-cup"></i>
                     </div>
-                    <h3 class="h4 fw-bold mb-2">Coca-Cola</h3>
-                    <p class="text-muted mb-3">Software Developer | 2020-2021</p>
-                    <p>Built inventory management and distribution tracking systems using Vue.js and Django, reducing delivery times by 25% across East African operations.</p>
-                    <div class="tech-stack">
+                    <h4 class="h5 fw-bold mb-2">Coca-Cola</h4>
+                    <p class="text-primary mb-2">Software Developer</p>
+                    <p class="text-muted small mb-3">2020 - 2021</p>
+                    <p class="mb-3">Built inventory management and distribution tracking systems using Vue.js and Django.</p>
+                    <div class="tech-tags">
                         <span class="tech-tag">Vue.js</span>
                         <span class="tech-tag">Django</span>
                         <span class="tech-tag">MongoDB</span>
                         <span class="tech-tag">Python</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Projects Showcase -->
-<section id="projects" class="project-showcase section-spacing">
-    <div class="container">
-        <div class="section-header">
-            <h2>Featured <span class="text-gradient">Projects</span></h2>
-            <p>Enterprise-level solutions developed for real-world impact</p>
-        </div>
-        
-        <div class="row g-4">
-            <div class="col-lg-4 col-md-6">
-                <div class="project-card">
-                    <div class="project-image d-flex align-items-center justify-content-center text-white">
-                        <i class="bi bi-hospital" style="font-size: 4rem;"></i>
-                    </div>
-                    <div class="p-4">
-                        <span class="education-badge mb-3">Government Project</span>
-                        <h3 class="h4 fw-bold mb-2">Muranga Level 5 HMIS</h3>
-                        <p class="text-muted mb-3">Comprehensive Hospital Management Information System serving 500+ daily patients with real-time data tracking and reporting.</p>
-                        <div class="tech-stack">
-                            <span class="tech-tag">Django</span>
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">PostgreSQL</span>
-                            <span class="tech-tag">Docker</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-lg-4 col-md-6">
-                <div class="project-card">
-                    <div class="project-image d-flex align-items-center justify-content-center text-white">
-                        <i class="bi bi-building" style="font-size: 4rem;"></i>
-                    </div>
-                    <div class="p-4">
-                        <span class="education-badge mb-3">Enterprise System</span>
-                        <h3 class="h4 fw-bold mb-2">MUT ERP System</h3>
-                        <p class="text-muted mb-3">University-wide Enterprise Resource Planning system managing student records, finance, and staff operations for 10,000+ users.</p>
-                        <div class="tech-stack">
-                            <span class="tech-tag">ASP.NET</span>
-                            <span class="tech-tag">C#</span>
-                            <span class="tech-tag">SQL Server</span>
-                            <span class="tech-tag">Angular</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-lg-4 col-md-6">
-                <div class="project-card">
-                    <div class="project-image d-flex align-items-center justify-content-center text-white">
-                        <i class="bi bi-clipboard-data" style="font-size: 4rem;"></i>
-                    </div>
-                    <div class="p-4">
-                        <span class="education-badge mb-3">Management System</span>
-                        <h3 class="h4 fw-bold mb-2">Strathmore PMIS</h3>
-                        <p class="text-muted mb-3">Project Management Information System streamlining project tracking and resource allocation for 200+ concurrent projects.</p>
-                        <div class="tech-stack">
-                            <span class="tech-tag">Java Spring</span>
-                            <span class="tech-tag">Vue.js</span>
-                            <span class="tech-tag">MySQL</span>
-                            <span class="tech-tag">Redis</span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -411,7 +474,7 @@
             <div class="col-md-3 col-6">
                 <div class="stat-item">
                     <div class="stat-number">391+</div>
-                    <div class="stat-label">Personal Projects</div>
+                    <div class="stat-label">Projects</div>
                 </div>
             </div>
             <div class="col-md-3 col-6">
@@ -428,118 +491,182 @@
             </div>
             <div class="col-md-3 col-6">
                 <div class="stat-item">
-                    <div class="stat-number">100%</div>
-                    <div class="stat-label">Client Satisfaction</div>
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Major Systems</div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Education & Skills Section -->
-<section class="section-spacing">
+<!-- Projects Section -->
+<section id="projects" class="py-5">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-6 mb-5 mb-lg-0">
-                <div class="section-header text-start">
-                    <h2>Education & <span class="text-gradient">Background</span></h2>
-                </div>
-                
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <h3 class="h5 fw-bold mb-1">Bachelor of Science in Information Technology</h3>
-                        <p class="text-muted mb-1">Muranga University of Technology</p>
-                        <small class="text-primary"><i class="bi bi-calendar me-1"></i>Graduating April 2026</small>
-                        <p class="mt-2">Specialized in Software Engineering and Database Systems with focus on enterprise application development.</p>
+        <div class="section-header text-center">
+            <h2>Featured Projects</h2>
+            <p class="lead">Enterprise-level solutions developed for real-world impact</p>
+        </div>
+        
+        <div class="row g-4">
+            <!-- Project 1 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="bi bi-hospital"></i>
                     </div>
-                    
-                    <div class="timeline-item">
-                        <h3 class="h5 fw-bold mb-1">Software Development Certifications</h3>
-                        <p class="text-muted mb-1">Microsoft, AWS, Django</p>
-                        <small class="text-primary"><i class="bi bi-award me-1"></i>Professional Certifications</small>
-                        <p class="mt-2">Certified in Azure Solutions Architect, Django Professional, and AWS Developer Associate.</p>
+                    <div class="project-content">
+                        <span class="project-badge">Government Healthcare</span>
+                        <h4 class="h5 fw-bold mb-3">Muranga Level 5 HMIS</h4>
+                        <p class="mb-3">Hospital Management Information System serving 500+ daily patients with real-time data tracking and reporting.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Django</span>
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                            <span class="tech-tag">Docker</span>
+                        </div>
                     </div>
                 </div>
             </div>
             
-            <div class="col-lg-6">
-                <div class="section-header text-start">
-                    <h2>Technical <span class="text-gradient">Expertise</span></h2>
+            <!-- Project 2 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="bi bi-building"></i>
+                    </div>
+                    <div class="project-content">
+                        <span class="project-badge">Education Enterprise</span>
+                        <h4 class="h5 fw-bold mb-3">MUT ERP System</h4>
+                        <p class="mb-3">University-wide Enterprise Resource Planning system managing student records, finance, and staff operations.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">ASP.NET</span>
+                            <span class="tech-tag">C#</span>
+                            <span class="tech-tag">SQL Server</span>
+                            <span class="tech-tag">Angular</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 3 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="bi bi-clipboard-data"></i>
+                    </div>
+                    <div class="project-content">
+                        <span class="project-badge">Project Management</span>
+                        <h4 class="h5 fw-bold mb-3">Strathmore PMIS</h4>
+                        <p class="mb-3">Project Management Information System streamlining project tracking and resource allocation.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Java Spring</span>
+                            <span class="tech-tag">Vue.js</span>
+                            <span class="tech-tag">MySQL</span>
+                            <span class="tech-tag">Redis</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Section -->
+<section id="skills" class="py-5 bg-light">
+    <div class="container">
+        <div class="section-header text-center">
+            <h2>Technical Skills</h2>
+            <p class="lead">Comprehensive expertise across modern software development technologies</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="skill-category h-100">
+                    <h4>Backend</h4>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Django/DRF</span>
+                        <span class="tech-tag">ASP.NET Core</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">C#</span>
+                        <span class="tech-tag">Java Spring</span>
+                        <span class="tech-tag">Node.js</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="skill-category h-100">
+                    <h4>Frontend</h4>
+                    <div class="tech-tags">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">Angular</span>
+                        <span class="tech-tag">Vue.js</span>
+                        <span class="tech-tag">TypeScript</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">HTML/CSS</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="skill-category h-100">
+                    <h4>Databases</h4>
+                    <div class="tech-tags">
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">MongoDB</span>
+                        <span class="tech-tag">Redis</span>
+                        <span class="tech-tag">SQL Server</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="skill-category h-100">
+                    <h4>DevOps</h4>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">AWS</span>
+                        <span class="tech-tag">Azure</span>
+                        <span class="tech-tag">Git</span>
+                        <span class="tech-tag">CI/CD</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Education Section -->
+<section id="education" class="py-5">
+    <div class="container">
+        <div class="section-header text-center">
+            <h2>Education</h2>
+            <p class="lead">Academic background and professional certifications</p>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="education-card">
+                    <div class="education-icon">
+                        <i class="bi bi-mortarboard"></i>
+                    </div>
+                    <h4 class="h5 fw-bold mb-2">Bachelor of Science in Information Technology</h4>
+                    <p class="text-primary mb-2">Muranga University of Technology</p>
+                    <p class="text-muted mb-3">Expected Graduation: April 2026</p>
+                    <p class="mb-0">Specializing in Software Engineering, Database Systems, and Enterprise Application Development. Focus on practical implementation of software solutions for real-world problems.</p>
                 </div>
                 
-                <div class="row g-3">
-                    <div class="col-6">
-                        <div class="experience-card h-100">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="contact-icon">
-                                    <i class="bi bi-server"></i>
-                                </div>
-                                <h3 class="h5 fw-bold mb-0 ms-3">Backend Development</h3>
-                            </div>
-                            <div class="tech-stack">
-                                <span class="tech-tag">Django/DRF</span>
-                                <span class="tech-tag">ASP.NET Core</span>
-                                <span class="tech-tag">Java Spring</span>
-                                <span class="tech-tag">Node.js</span>
-                                <span class="tech-tag">Python</span>
-                                <span class="tech-tag">C#</span>
-                            </div>
-                        </div>
+                <div class="education-card">
+                    <div class="education-icon">
+                        <i class="bi bi-award"></i>
                     </div>
-                    
-                    <div class="col-6">
-                        <div class="experience-card h-100">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="contact-icon">
-                                    <i class="bi bi-layout-wtf"></i>
-                                </div>
-                                <h3 class="h5 fw-bold mb-0 ms-3">Frontend Development</h3>
-                            </div>
-                            <div class="tech-stack">
-                                <span class="tech-tag">React</span>
-                                <span class="tech-tag">Angular</span>
-                                <span class="tech-tag">Vue.js</span>
-                                <span class="tech-tag">TypeScript</span>
-                                <span class="tech-tag">JavaScript</span>
-                                <span class="tech-tag">CSS/SCSS</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-6">
-                        <div class="experience-card h-100">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="contact-icon">
-                                    <i class="bi bi-database"></i>
-                                </div>
-                                <h3 class="h5 fw-bold mb-0 ms-3">Databases</h3>
-                            </div>
-                            <div class="tech-stack">
-                                <span class="tech-tag">PostgreSQL</span>
-                                <span class="tech-tag">MySQL</span>
-                                <span class="tech-tag">MongoDB</span>
-                                <span class="tech-tag">Redis</span>
-                                <span class="tech-tag">SQL Server</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-6">
-                        <div class="experience-card h-100">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="contact-icon">
-                                    <i class="bi bi-cloud"></i>
-                                </div>
-                                <h3 class="h5 fw-bold mb-0 ms-3">DevOps & Cloud</h3>
-                            </div>
-                            <div class="tech-stack">
-                                <span class="tech-tag">Docker</span>
-                                <span class="tech-tag">AWS</span>
-                                <span class="tech-tag">Azure</span>
-                                <span class="tech-tag">Git/GitHub</span>
-                                <span class="tech-tag">CI/CD</span>
-                            </div>
-                        </div>
+                    <h4 class="h5 fw-bold mb-2">Professional Certifications</h4>
+                    <div class="tech-tags mt-2">
+                        <span class="tech-tag">Microsoft Azure Solutions Architect</span>
+                        <span class="tech-tag">Django Professional</span>
+                        <span class="tech-tag">AWS Developer Associate</span>
+                        <span class="tech-tag">.NET Core Certification</span>
                     </div>
                 </div>
             </div>
@@ -548,81 +675,74 @@
 </section>
 
 <!-- Contact Section -->
-<section id="contact" class="section-spacing bg-light">
+<section id="contact" class="py-5 bg-light">
     <div class="container">
-        <div class="section-header">
-            <h2>Let's <span class="text-gradient">Connect</span></h2>
-            <p>Ready to discuss your next project or have questions? Get in touch!</p>
+        <div class="section-header text-center">
+            <h2>Get In Touch</h2>
+            <p class="lead">Ready to discuss your next project or have questions? Let's connect</p>
         </div>
         
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="contact-card">
-                    <div class="row">
-                        <div class="col-md-6 mb-4 mb-md-0">
+        <div class="row">
+            <div class="col-lg-5 mb-4 mb-lg-0">
+                <div class="contact-info">
+                    <div class="contact-icon">
+                        <i class="bi bi-envelope"></i>
+                    </div>
+                    <h4 class="h5 fw-bold mb-2">Email</h4>
+                    <p class="mb-1">steve@ongera.com</p>
+                    <small class="text-muted">Typically replies within 2 hours</small>
+                </div>
+                
+                <div class="contact-info">
+                    <div class="contact-icon">
+                        <i class="bi bi-telephone"></i>
+                    </div>
+                    <h4 class="h5 fw-bold mb-2">Phone</h4>
+                    <p class="mb-1">+254 700 000 000</p>
+                    <small class="text-muted">Mon-Fri, 9AM-5PM EAT</small>
+                </div>
+                
+                <div class="contact-info">
+                    <div class="contact-icon">
+                        <i class="bi bi-geo-alt"></i>
+                    </div>
+                    <h4 class="h5 fw-bold mb-2">Location</h4>
+                    <p class="mb-1">Nairobi, Kenya</p>
+                    <small class="text-muted">Available for remote work worldwide</small>
+                </div>
+            </div>
+            
+            <div class="col-lg-7">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="h5 fw-bold mb-4">Send Message</h4>
+                        <form id="contactForm">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">Subject</label>
+                                <input type="text" class="form-control" id="subject" required>
+                            </div>
                             <div class="mb-4">
-                                <div class="contact-icon">
-                                    <i class="bi bi-envelope"></i>
-                                </div>
-                                <h4 class="h5 fw-bold mb-2">Email</h4>
-                                <p class="mb-0">steve.ongera@example.com</p>
-                                <small class="text-muted">Typically replies within 2 hours</small>
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control" id="message" rows="4" required></textarea>
                             </div>
-                            
-                            <div class="mb-4">
-                                <div class="contact-icon">
-                                    <i class="bi bi-telephone"></i>
-                                </div>
-                                <h4 class="h5 fw-bold mb-2">Phone</h4>
-                                <p class="mb-0">+254 700 000 000</p>
-                                <small class="text-muted">Mon-Fri, 9AM-5PM EAT</small>
-                            </div>
-                            
-                            <div class="mb-4">
-                                <div class="contact-icon">
-                                    <i class="bi bi-geo-alt"></i>
-                                </div>
-                                <h4 class="h5 fw-bold mb-2">Location</h4>
-                                <p class="mb-0">Nairobi, Kenya</p>
-                                <small class="text-muted">Available for remote work worldwide</small>
-                            </div>
-                            
-                            <div class="d-flex gap-3 mt-4">
-                                <a href="#" class="btn btn-outline-primary rounded-circle p-3">
-                                    <i class="bi bi-linkedin"></i>
-                                </a>
-                                <a href="#" class="btn btn-outline-primary rounded-circle p-3">
-                                    <i class="bi bi-github"></i>
-                                </a>
-                                <a href="#" class="btn btn-outline-primary rounded-circle p-3">
-                                    <i class="bi bi-twitter"></i>
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-6">
-                            <form>
-                                <div class="mb-3">
-                                    <label for="name" class="form-label">Name</label>
-                                    <input type="text" class="form-control" id="name" placeholder="Your name">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="email" placeholder="your@email.com">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="subject" class="form-label">Subject</label>
-                                    <input type="text" class="form-control" id="subject" placeholder="Project discussion">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="message" class="form-label">Message</label>
-                                    <textarea class="form-control" id="message" rows="4" placeholder="Tell me about your project..."></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-primary w-100">
-                                    <i class="bi bi-send me-2"></i>Send Message
-                                </button>
-                            </form>
-                        </div>
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="bi bi-send me-2"></i>Send Message
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -633,46 +753,113 @@
 
 {% block extra_js %}
 <script>
-    // Animate stats counter
     document.addEventListener('DOMContentLoaded', function() {
-        const statNumbers = document.querySelectorAll('.stat-number');
+        // Simple form submission handler
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form data
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    subject: document.getElementById('subject').value,
+                    message: document.getElementById('message').value
+                };
+                
+                // In a real application, you would send this data to your server
+                console.log('Form submitted:', formData);
+                
+                // Show success message (you can replace this with actual form submission)
+                alert('Thank you for your message! I will get back to you soon.');
+                contactForm.reset();
+            });
+        }
         
-        statNumbers.forEach(stat => {
-            const target = parseInt(stat.textContent);
-            let current = 0;
-            const increment = target / 50;
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    current = target;
-                    clearInterval(timer);
-                }
-                stat.textContent = Math.floor(current) + (stat.textContent.includes('+') ? '+' : '');
-            }, 30);
-        });
-
-        // Add scroll animation for experience cards
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+        // Animate stats counter on scroll
+        const statsSection = document.querySelector('.stats-section');
+        const statNumbers = document.querySelectorAll('.stat-number');
+        let animated = false;
+        
+        function animateStats() {
+            if (animated) return;
+            
+            const rect = statsSection.getBoundingClientRect();
+            if (rect.top < window.innerHeight * 0.8) {
+                animated = true;
+                
+                statNumbers.forEach(stat => {
+                    const target = parseInt(stat.textContent);
+                    let current = 0;
+                    const increment = target / 40;
+                    
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            current = target;
+                            clearInterval(timer);
+                        }
+                        stat.textContent = Math.floor(current) + '+';
+                    }, 40);
+                });
+            }
+        }
+        
+        // Initial check
+        animateStats();
+        
+        // Check on scroll
+        window.addEventListener('scroll', animateStats);
+        
+        // Update active nav link based on scroll position
+        function updateActiveNav() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
                 }
             });
-        }, observerOptions);
-
-        // Observe all experience and project cards
-        document.querySelectorAll('.experience-card, .project-card').forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-            observer.observe(card);
-        });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Handle home page special case
+            if (scrollY < 100) {
+                const homeLink = document.querySelector('.nav-link[href="#home"]');
+                if (homeLink) {
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    homeLink.classList.add('active');
+                }
+            }
+        }
+        
+        window.addEventListener('scroll', updateActiveNav);
+        
+        // Handle mobile navigation closing on link click
+        if (window.innerWidth < 992) {
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    // Close sidebar on mobile
+                    const sidebar = document.getElementById('sidebar');
+                    const backdrop = document.getElementById('sidebarBackdrop');
+                    if (sidebar && backdrop) {
+                        sidebar.classList.remove('active');
+                        backdrop.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+            });
+        }
     });
 </script>
 {% endblock %}
